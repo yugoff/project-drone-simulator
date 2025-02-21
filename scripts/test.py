@@ -1,7 +1,5 @@
 from stable_baselines3 import PPO
 import gymnasium as gym
-import pybullet_data
-import time
 import numpy as np
 import pybullet as p
 from src.drone_env import DroneEnv  # Убедитесь, что правильный путь к вашему файлу
