@@ -1,0 +1,161 @@
+<?xml version="1.0" ?>
+<robot name="environment">
+
+  <!-- Вода как статическая поверхность -->
+  <link name="water_surface">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="4 4 0.1"/>  <!-- Размер водной поверхности -->
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 0.7"/>  <!-- Прозрачный синий цвет -->
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="4 4 0.1"/>  <!-- Уменьшен размер коллизии -->
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Движущаяся платформа -->
+  <link name="floating_platform">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="5"/>  <!-- Легкая масса, чтобы платформа могла "плавать" -->
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="2 2 0.2"/>  <!-- Размер платформы -->
+      </geometry>
+      <material name="gray">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="2 2 0.2"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Соединение платформы с водой -->
+  <joint name="platform_joint" type="fixed">
+    <parent link="water_surface"/>
+    <child link="floating_platform"/>
+    <origin xyz="0 0 -0.01"/> <!-- Платформа чуть выше воды -->
+  </joint>
+
+  <!-- Центральная часть квадрокоптера -->
+  <link name="drone">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="1"/>
+      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/> <!-- Черный цвет -->
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.5" length="0.3"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Пример соединения с платформой -->
+  <joint name="drone_to_platform" type="fixed">
+    <parent link="floating_platform"/>
+    <child link="drone"/>
+    <origin xyz="0 0 1.5"/> <!-- Смещение для дрона над платформой -->
+  </joint>
+
+  <!-- Моторы -->
+  <joint name="motor1_joint" type="revolute">
+    <parent link="drone"/>
+    <child link="motor1"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0.2 0.2 0"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+
+  <link name="motor1">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.01"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/> <!-- Черный цвет -->
+      </material>
+    </visual>
+  </link>
+
+  <joint name="motor2_joint" type="revolute">
+    <parent link="drone"/>
+    <child link="motor2"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0.2 -0.2 0"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+
+  <link name="motor2">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.01"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/> <!-- Черный цвет -->
+      </material>
+    </visual>
+  </link>
+
+  <joint name="motor3_joint" type="revolute">
+    <parent link="drone"/>
+    <child link="motor3"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="-0.2 0.2 0"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+
+  <link name="motor3">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.01"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/> <!-- Черный цвет -->
+      </material>
+    </visual>
+  </link>
+
+  <joint name="motor4_joint" type="revolute">
+    <parent link="drone"/>
+    <child link="motor4"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="-0.2 -0.2 0"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+
+  <link name="motor4">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.01"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/> <!-- Черный цвет -->
+      </material>
+    </visual>
+  </link>
+
+</robot>

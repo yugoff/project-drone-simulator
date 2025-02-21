@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot name="water_surface">
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="100 100 0.01"/>
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="100 100 0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.0"/>
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+        </inertial>
+    </link>
+</robot>
